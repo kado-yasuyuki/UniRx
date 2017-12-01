@@ -97,6 +97,7 @@ namespace UniRx
             return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
         }
 
+#if UNITY_2017_1_OR_NEWER
         public static IObservable<AssetBundle> GetAssetBundle(string url, CachedAssetBundle cachedAssetBundle, uint crc, Hash headers, IProgress<float> downloadProgress = null)
         {
             var www = UnityWebRequest.GetAssetBundle(url, cachedAssetBundle, crc).SetHeaders(headers);
@@ -108,31 +109,48 @@ namespace UniRx
             var www = UnityWebRequest.GetAssetBundle(url, cachedAssetBundle, crc);
             return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
         }
-
+#endif
         public static IObservable<Texture> GetTexture(string url, Hash headers, IProgress<float> downloadProgress = null)
         {
+#if UNITY_2017_1_OR_NEWER
             var www = UnityWebRequestTexture.GetTexture(url).SetHeaders(headers);
+#else
+            var www = UnityWebRequest.GetTexture(url).SetHeaders(headers);
+#endif
             return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerTexture)w.downloadHandler).texture);
         }
 
         public static IObservable<Texture> GetTexture(string url, IProgress<float> downloadProgress = null)
         {
+#if UNITY_2017_1_OR_NEWER
             var www = UnityWebRequestTexture.GetTexture(url);
+#else
+            var www = UnityWebRequest.GetTexture(url);
+#endif
             return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerTexture)w.downloadHandler).texture);
         }
 
         public static IObservable<AudioClip> GetAudioClip(string url, AudioType type, Hash headers, IProgress<float> downloadProgress = null)
         {
+#if UNITY_2017_1_OR_NEWER
             var www = UnityWebRequestMultimedia.GetAudioClip(url, type).SetHeaders(headers);
+#else
+            var www = UnityWebRequest.GetAudioClip(url, type).SetHeaders(headers);
+#endif
             return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAudioClip)w.downloadHandler).audioClip);
         }
 
         public static IObservable<AudioClip> GetAudioClip(string url, AudioType type, IProgress<float> downloadProgress = null)
         {
+#if UNITY_2017_1_OR_NEWER
             var www = UnityWebRequestMultimedia.GetAudioClip(url, type);
+#else
+            var www = UnityWebRequest.GetAudioClip(url, type);
+#endif
             return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAudioClip)w.downloadHandler).audioClip);
         }
 
+#if UNITY_2017_1_OR_NEWER
         public static IObservable<MovieTexture> GetMovieTexture(string url, Hash headers, IProgress<float> downloadProgress = null)
         {
             var www = UnityWebRequestMultimedia.GetMovieTexture(url).SetHeaders(headers);
@@ -144,6 +162,7 @@ namespace UniRx
             var www = UnityWebRequestMultimedia.GetMovieTexture(url);
             return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerMovieTexture)w.downloadHandler).movieTexture);
         }
+#endif
         #endregion GET
 
         #region POST
