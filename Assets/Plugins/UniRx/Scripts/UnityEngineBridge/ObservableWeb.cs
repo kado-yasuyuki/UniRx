@@ -110,7 +110,7 @@ namespace UniRx
             return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
         }
 #endif
-        public static IObservable<Texture> GetTexture(string url, Hash headers, IProgress<float> downloadProgress = null)
+        public static IObservable<Texture2D> GetTexture(string url, Hash headers, IProgress<float> downloadProgress = null)
         {
 #if UNITY_2017_1_OR_NEWER
             var www = UnityWebRequestTexture.GetTexture(url).SetHeaders(headers);
@@ -120,7 +120,7 @@ namespace UniRx
             return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerTexture)w.downloadHandler).texture);
         }
 
-        public static IObservable<Texture> GetTexture(string url, IProgress<float> downloadProgress = null)
+        public static IObservable<Texture2D> GetTexture(string url, IProgress<float> downloadProgress = null)
         {
 #if UNITY_2017_1_OR_NEWER
             var www = UnityWebRequestTexture.GetTexture(url);
