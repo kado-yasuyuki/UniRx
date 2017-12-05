@@ -14,7 +14,6 @@ namespace UniRx
 {
     using System.Threading;
     using Hash = System.Collections.Generic.Dictionary<string, string>;
-    using HashEntry = System.Collections.Generic.KeyValuePair<string, string>;
 
     public static partial class ObservableWeb
     {
