@@ -150,7 +150,7 @@ namespace UniRx
             return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAudioClip)w.downloadHandler).audioClip);
         }
 
-#if UNITY_2017_1_OR_NEWER
+#if UNITY_2017_1_OR_NEWER && UNITY_STANDALONE
         public static IObservable<MovieTexture> GetMovieTexture(string url, Hash headers, IProgress<float> downloadProgress = null)
         {
             var www = UnityWebRequestMultimedia.GetMovieTexture(url).SetHeaders(headers);
