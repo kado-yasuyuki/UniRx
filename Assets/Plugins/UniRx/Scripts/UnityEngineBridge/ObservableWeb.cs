@@ -20,12 +20,12 @@ namespace UniRx
         #region GET
         public static IObservable<UnityWebRequest> GetWWW(string url, Hash headers, IProgress<float> downloadProgress = null)
         {
-            return ProceedWebRequest(UnityWebRequest.Get(url).SetHeaders(headers), downloadProgress, null);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Get(url).SetHeaders(headers), observer, null, downloadProgress, cancellation));
         }
 
         public static IObservable<UnityWebRequest> GetWWW(string url, IProgress<float> downloadProgress = null)
         {
-            return ProceedWebRequest(UnityWebRequest.Get(url), downloadProgress, null);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Get(url), observer, null, downloadProgress, cancellation));
         }
 
         public static IObservable<string> Get(string url, Hash headers, IProgress<float> downloadProgress = null)
@@ -50,116 +50,120 @@ namespace UniRx
 
         public static IObservable<AssetBundle> GetAssetBundle(string url, Hash headers, IProgress<float> downloadProgress = null)
         {
-            var www = UnityWebRequest.GetAssetBundle(url).SetHeaders(headers);
-            return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.GetAssetBundle(url).SetHeaders(headers), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
         }
 
         public static IObservable<AssetBundle> GetAssetBundle(string url, IProgress<float> downloadProgress = null)
         {
-            var www = UnityWebRequest.GetAssetBundle(url);
-            return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.GetAssetBundle(url), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
         }
 
         public static IObservable<AssetBundle> GetAssetBundle(string url, uint crc, Hash headers, IProgress<float> downloadProgress = null)
         {
-            var www = UnityWebRequest.GetAssetBundle(url, crc).SetHeaders(headers);
-            return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.GetAssetBundle(url, crc).SetHeaders(headers), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
         }
 
         public static IObservable<AssetBundle> GetAssetBundle(string url, uint crc, IProgress<float> downloadProgress = null)
         {
-            var www = UnityWebRequest.GetAssetBundle(url, crc);
-            return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.GetAssetBundle(url, crc), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
         }
 
         public static IObservable<AssetBundle> GetAssetBundle(string url, uint version, uint crc, Hash headers, IProgress<float> downloadProgress = null)
         {
-            var www = UnityWebRequest.GetAssetBundle(url, version, crc).SetHeaders(headers);
-            return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.GetAssetBundle(url, version, crc).SetHeaders(headers), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
         }
 
         public static IObservable<AssetBundle> GetAssetBundle(string url, uint version, uint crc, IProgress<float> downloadProgress = null)
         {
-            var www = UnityWebRequest.GetAssetBundle(url, version, crc);
-            return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.GetAssetBundle(url, version, crc), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
         }
 
         public static IObservable<AssetBundle> GetAssetBundle(string url, Hash128 hash, uint crc, Hash headers, IProgress<float> downloadProgress = null)
         {
-            var www = UnityWebRequest.GetAssetBundle(url, hash, crc).SetHeaders(headers);
-            return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.GetAssetBundle(url, hash, crc).SetHeaders(headers), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
         }
 
         public static IObservable<AssetBundle> GetAssetBundle(string url, Hash128 hash, uint crc, IProgress<float> downloadProgress = null)
         {
-            var www = UnityWebRequest.GetAssetBundle(url, hash, crc);
-            return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.GetAssetBundle(url, hash, crc), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
         }
 
 #if UNITY_2017_1_OR_NEWER
         public static IObservable<AssetBundle> GetAssetBundle(string url, CachedAssetBundle cachedAssetBundle, uint crc, Hash headers, IProgress<float> downloadProgress = null)
         {
-            var www = UnityWebRequest.GetAssetBundle(url, cachedAssetBundle, crc).SetHeaders(headers);
-            return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.GetAssetBundle(url, cachedAssetBundle, crc).SetHeaders(headers), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
         }
 
         public static IObservable<AssetBundle> GetAssetBundle(string url, CachedAssetBundle cachedAssetBundle, uint crc, IProgress<float> downloadProgress = null)
         {
-            var www = UnityWebRequest.GetAssetBundle(url, cachedAssetBundle, crc);
-            return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.GetAssetBundle(url, cachedAssetBundle, crc), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerAssetBundle)w.downloadHandler).assetBundle);
         }
 #endif
         public static IObservable<Texture2D> GetTexture(string url, Hash headers, IProgress<float> downloadProgress = null)
         {
 #if UNITY_2017_1_OR_NEWER
-            var www = UnityWebRequestTexture.GetTexture(url).SetHeaders(headers);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequestTexture.GetTexture(url).SetHeaders(headers), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerTexture)w.downloadHandler).texture);
 #else
-            var www = UnityWebRequest.GetTexture(url).SetHeaders(headers);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.GetTexture(url).SetHeaders(headers), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerTexture)w.downloadHandler).texture);
 #endif
-            return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerTexture)w.downloadHandler).texture);
         }
 
         public static IObservable<Texture2D> GetTexture(string url, IProgress<float> downloadProgress = null)
         {
 #if UNITY_2017_1_OR_NEWER
-            var www = UnityWebRequestTexture.GetTexture(url);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequestTexture.GetTexture(url), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerTexture)w.downloadHandler).texture);
 #else
-            var www = UnityWebRequest.GetTexture(url);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.GetTexture(url), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerTexture)w.downloadHandler).texture);
 #endif
-            return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerTexture)w.downloadHandler).texture);
         }
 
         public static IObservable<AudioClip> GetAudioClip(string url, AudioType type, Hash headers, IProgress<float> downloadProgress = null)
         {
 #if UNITY_2017_1_OR_NEWER
-            var www = UnityWebRequestMultimedia.GetAudioClip(url, type).SetHeaders(headers);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequestMultimedia.GetAudioClip(url, type).SetHeaders(headers), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerAudioClip)w.downloadHandler).audioClip);
 #else
-            var www = UnityWebRequest.GetAudioClip(url, type).SetHeaders(headers);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.GetAudioClip(url, type).SetHeaders(headers), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerAudioClip)w.downloadHandler).audioClip);
 #endif
-            return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAudioClip)w.downloadHandler).audioClip);
         }
 
         public static IObservable<AudioClip> GetAudioClip(string url, AudioType type, IProgress<float> downloadProgress = null)
         {
 #if UNITY_2017_1_OR_NEWER
-            var www = UnityWebRequestMultimedia.GetAudioClip(url, type);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequestMultimedia.GetAudioClip(url, type), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerAudioClip)w.downloadHandler).audioClip);
 #else
-            var www = UnityWebRequest.GetAudioClip(url, type);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.GetAudioClip(url, type), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerAudioClip)w.downloadHandler).audioClip);
 #endif
-            return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerAudioClip)w.downloadHandler).audioClip);
         }
 
 #if UNITY_2017_1_OR_NEWER && UNITY_STANDALONE
         public static IObservable<MovieTexture> GetMovieTexture(string url, Hash headers, IProgress<float> downloadProgress = null)
         {
-            var www = UnityWebRequestMultimedia.GetMovieTexture(url).SetHeaders(headers);
-            return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerMovieTexture)w.downloadHandler).movieTexture);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequestMultimedia.GetMovieTexture(url).SetHeaders(headers), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerMovieTexture)w.downloadHandler).movieTexture);
         }
 
         public static IObservable<MovieTexture> GetMovieTexture(string url, IProgress<float> downloadProgress = null)
         {
-            var www = UnityWebRequestMultimedia.GetMovieTexture(url);
-            return ProceedWebRequest(www, downloadProgress, null).Select(w => ((DownloadHandlerMovieTexture)w.downloadHandler).movieTexture);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequestMultimedia.GetMovieTexture(url), observer, null, downloadProgress, cancellation))
+                                  .Select(w => ((DownloadHandlerMovieTexture)w.downloadHandler).movieTexture);
         }
 #endif
         #endregion GET
@@ -168,42 +172,42 @@ namespace UniRx
 
         public static IObservable<UnityWebRequest> PostWWW(string url, string postData, Hash headers, IProgress<float> downloadProgress = null)
         {
-            return ProceedWebRequest(UnityWebRequest.Post(url, postData).SetHeaders(headers), downloadProgress, null);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Post(url, postData).SetHeaders(headers), observer, null, downloadProgress, cancellation));
         }
 
         public static IObservable<UnityWebRequest> PostWWW(string url, string postData, IProgress<float> downloadProgress = null)
         {
-            return ProceedWebRequest(UnityWebRequest.Post(url, postData), downloadProgress, null);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Post(url, postData), observer, null, downloadProgress, cancellation));
         }
 
         public static IObservable<UnityWebRequest> PostWWW(string url, WWWForm formData, Hash headers, IProgress<float> downloadProgress = null)
         {
-            return ProceedWebRequest(UnityWebRequest.Post(url, formData).SetHeaders(headers), downloadProgress, null);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Post(url, formData).SetHeaders(headers), observer, null, downloadProgress, cancellation));
         }
 
         public static IObservable<UnityWebRequest> PostWWW(string url, WWWForm formData, IProgress<float> downloadProgress = null)
         {
-            return ProceedWebRequest(UnityWebRequest.Post(url, formData), downloadProgress, null);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Post(url, formData), observer, null, downloadProgress, cancellation));
         }
 
         public static IObservable<UnityWebRequest> PostWWW(string url, Hash formFields, Hash headers, IProgress<float> downloadProgress = null)
         {
-            return ProceedWebRequest(UnityWebRequest.Post(url, formFields).SetHeaders(headers), downloadProgress, null);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Post(url, formFields).SetHeaders(headers), observer, null, downloadProgress, cancellation));
         }
 
         public static IObservable<UnityWebRequest> PostWWW(string url, Hash formFields, IProgress<float> downloadProgress = null)
         {
-            return ProceedWebRequest(UnityWebRequest.Post(url, formFields), downloadProgress, null);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Post(url, formFields), observer, null, downloadProgress, cancellation));
         }
 
         public static IObservable<UnityWebRequest> PostWWW(string url, List<IMultipartFormSection> multipartFromSections, Hash headers, IProgress<float> downloadProgress = null)
         {
-            return ProceedWebRequest(UnityWebRequest.Post(url, multipartFromSections).SetHeaders(headers), downloadProgress, null);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Post(url, multipartFromSections).SetHeaders(headers), observer, null, downloadProgress, cancellation));
         }
 
         public static IObservable<UnityWebRequest> PostWWW(string url, List<IMultipartFormSection> multipartFromSections, IProgress<float> downloadProgress = null)
         {
-            return ProceedWebRequest(UnityWebRequest.Post(url, multipartFromSections), downloadProgress, null);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Post(url, multipartFromSections), observer, null, downloadProgress, cancellation));
         }
 
         public static IObservable<string> Post(string url, string postData, Hash headers, IProgress<float> downloadProgress = null)
@@ -290,22 +294,22 @@ namespace UniRx
         #region PUT
         public static IObservable<UnityWebRequest> PutWWW(string url, byte[] bodyData, Hash headers, IProgress<float> downloadProgress = null)
         {
-            return ProceedWebRequest(UnityWebRequest.Put(url, bodyData).SetHeaders(headers), downloadProgress, null);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Put(url, bodyData).SetHeaders(headers), observer, null, downloadProgress, cancellation));
         }
 
         public static IObservable<UnityWebRequest> PutWWW(string url, byte[] bodyData, IProgress<float> downloadProgress = null)
         {
-            return ProceedWebRequest(UnityWebRequest.Put(url, bodyData), downloadProgress, null);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Put(url, bodyData), observer, null, downloadProgress, cancellation));
         }
 
         public static IObservable<UnityWebRequest> PutWWW(string url, string bodyData, Hash headers, IProgress<float> downloadProgress = null)
         {
-            return ProceedWebRequest(UnityWebRequest.Put(url, bodyData).SetHeaders(headers), downloadProgress, null);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Put(url, bodyData).SetHeaders(headers), observer, null, downloadProgress, cancellation));
         }
 
         public static IObservable<UnityWebRequest> PutWWW(string url, string bodyData, IProgress<float> downloadProgress = null)
         {
-            return ProceedWebRequest(UnityWebRequest.Put(url, bodyData), downloadProgress, null);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Put(url, bodyData), observer, null, downloadProgress, cancellation));
         }
 
         public static IObservable<string> Put(string url, byte[] bodyData, Hash headers, IProgress<float> downloadProgress = null)
@@ -352,7 +356,7 @@ namespace UniRx
         #region HEAD
         public static IObservable<UnityWebRequest> HeadWWW(string url, Hash headers, IProgress<float> downloadProgress = null)
         {
-            return ProceedWebRequest(UnityWebRequest.Head(url).SetHeaders(headers), downloadProgress, null);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Head(url).SetHeaders(headers), observer, null, downloadProgress, cancellation));
         }
 
         public static IObservable<string> Head(string url, Hash headers, IProgress<float> downloadProgress = null)
@@ -369,12 +373,12 @@ namespace UniRx
         #region DELETE
         public static IObservable<UnityWebRequest> DeleteWWW(string url, Hash headers, IProgress<float> downloadProgress = null)
         {
-            return ProceedWebRequest(UnityWebRequest.Delete(url).SetHeaders(headers), downloadProgress, null);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Delete(url).SetHeaders(headers), observer, null, downloadProgress, cancellation));
         }
 
         public static IObservable<UnityWebRequest> DeleteWWW(string url, IProgress<float> downloadProgress = null)
         {
-            return ProceedWebRequest(UnityWebRequest.Delete(url), downloadProgress, null);
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Delete(url), observer, null, downloadProgress, cancellation));
         }
 
         public static IObservable<string> Delete(string url, Hash headers, IProgress<float> downloadProgress = null)
@@ -410,9 +414,9 @@ namespace UniRx
             return www;
         }
 
-        public static IObservable<UnityWebRequest> ProceedWebRequest(UnityWebRequest www, IProgress<float> downloadProgress, IProgress<float> uploadProgress)
+        public static IObservable<UnityWebRequest> ProceedWebRequest(Func<UnityWebRequest> www, IProgress<float> downloadProgress, IProgress<float> uploadProgress)
         {
-            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(www, observer, uploadProgress, downloadProgress, cancellation));
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(www(), observer, uploadProgress, downloadProgress, cancellation));
         }
 
         static IEnumerator ProceedWebRequestCoroutine(UnityWebRequest www, IObserver<UnityWebRequest> observer, IProgress<float> downloadProgress, IProgress<float> uploadProgress, CancellationToken cancel)
