@@ -166,7 +166,7 @@ namespace UniRx
                                   .Select(w => ((DownloadHandlerMovieTexture)w.downloadHandler).movieTexture);
         }
 #endif
-        #endregion GET
+        #endregion
 
         #region POST
 
@@ -289,7 +289,7 @@ namespace UniRx
         {
             return PostWWW(url, multipartFromSections, dowloadProgress).Select(w => w.downloadHandler.data);
         }
-        #endregion POST
+        #endregion
 
         #region PUT
         public static IObservable<UnityWebRequest> PutWWW(string url, byte[] bodyData, Hash headers, IProgress<float> downloadProgress = null)
@@ -351,7 +351,7 @@ namespace UniRx
         {
             return PutWWW(url, bodyData, downloadProgress).Select(w => w.downloadHandler.data);
         }
-        #endregion PUT
+        #endregion
 
         #region HEAD
         public static IObservable<UnityWebRequest> HeadWWW(string url, Hash headers, IProgress<float> downloadProgress = null)
@@ -383,7 +383,7 @@ namespace UniRx
         {
             return HeadWWW(url, null, downloadProgress).Select(w => w.downloadHandler.data);
         }
-        #endregion HEAD
+        #endregion
 
         #region DELETE
         public static IObservable<UnityWebRequest> DeleteWWW(string url, Hash headers, IProgress<float> downloadProgress = null)
@@ -415,7 +415,7 @@ namespace UniRx
         {
             return DeleteWWW(url, null, downloadProgress).Select(w => w.downloadHandler.data);
         }
-        #endregion DELETE
+        #endregion
 
         static UnityWebRequest SetHeaders(this UnityWebRequest www, Hash headers)
         {

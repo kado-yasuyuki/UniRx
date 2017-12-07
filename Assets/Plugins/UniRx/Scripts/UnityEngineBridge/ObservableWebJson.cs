@@ -58,7 +58,7 @@ namespace UniRx
                                   .Select(w => w.downloadHandler.data);
         }
 
-        #endregion POST
+        #endregion
 
         #region PUT
 
@@ -86,7 +86,7 @@ namespace UniRx
                                   .Select(w => w.downloadHandler.data);
         }
 
-        #endregion PUT
+        #endregion
     }
 }
 #endif
