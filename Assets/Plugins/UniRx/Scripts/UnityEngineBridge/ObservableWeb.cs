@@ -359,14 +359,29 @@ namespace UniRx
             return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Head(url).SetHeaders(headers), observer, null, downloadProgress, cancellation));
         }
 
+        public static IObservable<UnityWebRequest> HeadWWW(string url, IProgress<float> downloadProgress = null)
+        {
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(UnityWebRequest.Head(url), observer, null, downloadProgress, cancellation));
+        }
+
         public static IObservable<string> Head(string url, Hash headers, IProgress<float> downloadProgress = null)
         {
             return HeadWWW(url, headers, downloadProgress).Select(w => w.downloadHandler.text);
         }
 
+        public static IObservable<string> Head(string url, IProgress<float> downloadProgress = null)
+        {
+            return HeadWWW(url, null, downloadProgress).Select(w => w.downloadHandler.text);
+        }
+
         public static IObservable<byte[]> HeadAndGetBytes(string url, Hash headers, IProgress<float> downloadProgress = null)
         {
             return HeadWWW(url, headers, downloadProgress).Select(w => w.downloadHandler.data);
+        }
+
+        public static IObservable<byte[]> HeadAndGetBytes(string url, IProgress<float> downloadProgress = null)
+        {
+            return HeadWWW(url, null, downloadProgress).Select(w => w.downloadHandler.data);
         }
         #endregion HEAD
 
