@@ -36,25 +36,25 @@ namespace UniRx
 
         public static IObservable<string> PostJson(string url, string json, Hash headers, IProgress<float> downloadProgress = null)
         {
-            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(CreateJsonWebRequest(url, UnityWebRequest.kHttpVerbPOST, json, headers), observer, null, downloadProgress, cancellation))
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(CreateJsonWebRequest(url, UnityWebRequest.kHttpVerbPOST, json, headers), observer, downloadProgress, null, cancellation))
                                   .Select(w => w.downloadHandler.text);
         }
 
         public static IObservable<string> PostJson(string url, string json, IProgress<float> downloadProgress = null)
         {
-            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(CreateJsonWebRequest(url, UnityWebRequest.kHttpVerbPOST, json, null), observer, null, downloadProgress, cancellation))
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(CreateJsonWebRequest(url, UnityWebRequest.kHttpVerbPOST, json, null), observer, downloadProgress, null, cancellation))
                                   .Select(w => w.downloadHandler.text);
         }
 
         public static IObservable<byte[]> PostJson(string url, byte[] json, Hash headers, IProgress<float> downloadProgress = null)
         {
-            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(CreateJsonWebRequest(url, UnityWebRequest.kHttpVerbPOST, json, headers), observer, null, downloadProgress, cancellation))
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(CreateJsonWebRequest(url, UnityWebRequest.kHttpVerbPOST, json, headers), observer, downloadProgress, null, cancellation))
                                   .Select(w => w.downloadHandler.data);
         }
 
         public static IObservable<byte[]> PostJson(string url, byte[] json, IProgress<float> downloadProgress = null)
         {
-            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(CreateJsonWebRequest(url, UnityWebRequest.kHttpVerbPOST, json, null), observer, null, downloadProgress, cancellation))
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(CreateJsonWebRequest(url, UnityWebRequest.kHttpVerbPOST, json, null), observer, downloadProgress, null, cancellation))
                                   .Select(w => w.downloadHandler.data);
         }
 
@@ -64,25 +64,25 @@ namespace UniRx
 
         public static IObservable<string> PutJson(string url, string json, Hash headers, IProgress<float> downloadProgress = null)
         {
-            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(CreateJsonWebRequest(url, UnityWebRequest.kHttpVerbPUT, json, headers), observer, null, downloadProgress, cancellation))
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(CreateJsonWebRequest(url, UnityWebRequest.kHttpVerbPUT, json, headers), observer, downloadProgress, null, cancellation))
                                   .Select(w => w.downloadHandler.text);
         }
 
         public static IObservable<string> PutJson(string url, string json, IProgress<float> downloadProgress = null)
         {
-            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(CreateJsonWebRequest(url, UnityWebRequest.kHttpVerbPUT, json, null), observer, null, downloadProgress, cancellation))
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(CreateJsonWebRequest(url, UnityWebRequest.kHttpVerbPUT, json, null), observer, downloadProgress, null, cancellation))
                                   .Select(w => w.downloadHandler.text);
         }
 
         public static IObservable<byte[]> PutJson(string url, byte[] json, Hash headers, IProgress<float> downloadProgress = null)
         {
-            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(CreateJsonWebRequest(url, UnityWebRequest.kHttpVerbPUT, json, headers), observer, null, downloadProgress, cancellation))
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(CreateJsonWebRequest(url, UnityWebRequest.kHttpVerbPUT, json, headers), observer, downloadProgress, null, cancellation))
                                   .Select(w => w.downloadHandler.data);
         }
 
         public static IObservable<byte[]> PutJson(string url, byte[] json, IProgress<float> downloadProgress = null)
         {
-            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(CreateJsonWebRequest(url, UnityWebRequest.kHttpVerbPUT, json, null), observer, null, downloadProgress, cancellation))
+            return ObservableUnity.FromCoroutine<UnityWebRequest>((observer, cancellation) => ProceedWebRequestCoroutine(CreateJsonWebRequest(url, UnityWebRequest.kHttpVerbPUT, json, null), observer, downloadProgress, null, cancellation))
                                   .Select(w => w.downloadHandler.data);
         }
 
